@@ -1,0 +1,12 @@
+<nb-card [nbSpinner]="false" nbSpinnerStatus="danger">
+  <nb-card-header>
+    Users
+    <button nbButton shape="round" size="small" status="success" style="float: right" (click)="addUser()">Add User</button>
+  </nb-card-header>
+  <nb-card-body>
+    <ng2-smart-table (userRowSelect)="onUserRowSelect($event)"
+                     [settings]="settings"
+                     [source]="source">
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>

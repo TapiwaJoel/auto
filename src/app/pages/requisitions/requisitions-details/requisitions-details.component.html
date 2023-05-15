@@ -1,0 +1,13 @@
+<nb-card [nbSpinner]="loader$ | async" nbSpinnerStatus="danger" style="width: 60vw">
+  <nb-card-header>
+    Requisition Details
+    <button nbButton shape="round" size="small" status="success" style="float: right" (click)="addProductsRequisition()">Add Products</button>
+
+  </nb-card-header>
+  <nb-card-body>
+    <ng2-smart-table
+      [settings]="settings"
+      [source]="source">
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>

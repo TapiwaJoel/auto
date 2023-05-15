@@ -1,0 +1,82 @@
+<nb-card [nbSpinner]="loader$ | async" nbSpinnerStatus="danger" style="width: 40vw">
+  <nb-card-header>Add Product</nb-card-header>
+
+  <nb-card-body>
+    <form [formGroup]="addProductForm">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input class="form-control" id="name" formControlName="name" placeholder="Name"
+                     type="text">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <div class="form-group">
+              <label for="firstName">Description</label>
+              <input class="form-control" id="firstName" formControlName="description"
+                     placeholder="Description">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <div class="form-group">
+              <label for="price">Price</label>
+              <input class="form-control" id="price" formControlName="price" placeholder="Price"
+                     type="number">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <div class="form-group">
+              <label for="quantityAvailableInStock">Quantity Available In Stock</label>
+              <input class="form-control" id="quantityAvailableInStock" formControlName="quantityAvailableInStock"
+                     type="number"
+                     placeholder="Quantity Available In Stock">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <div class="form-group">
+              <label for="code">Code</label>
+              <input class="form-control" id="code" formControlName="code" placeholder="Code"
+                     type="text">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <div class="form-group">
+              <label for="currency">Currency</label>
+              <select formControlName="currency" class="form-control" id="currency">
+                <option *ngFor="let currency of currencies" value="{{currency}}">
+                  {{currency}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="form-group">
+            <button
+              [disabled]="!addProductForm.valid"
+              class="btn btn-outline-success btn-icon btn-semi-round btn-demo"
+              id="button"
+              (click)="onSubmit()"
+              type="button">
+              Save
+              <i class="plus-outline"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>

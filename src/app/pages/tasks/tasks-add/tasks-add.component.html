@@ -1,0 +1,44 @@
+<nb-card [nbSpinner]="loader$ | async" nbSpinnerStatus="danger" style="width: 40vw">
+  <nb-card-header>Add Task
+  </nb-card-header>
+
+  <nb-card-body>
+    <form [formGroup]="addTaskForm">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <div class="form-group">
+              <label for="labourCharge">Labour Charge</label>
+              <input class="form-control" id="labourCharge" formControlName="labourCharge" placeholder="Name"
+                     type="number">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12">
+          <div class="form-group">
+            <div class="form-group">
+              <label for="firstName">Description</label>
+              <textarea class="form-control" id="firstName" rows="3" formControlName="description"
+                        placeholder="Description"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="form-group">
+            <button
+              [disabled]="!addTaskForm.valid"
+              class="btn btn-outline-success btn-icon btn-semi-round btn-demo"
+              id="button"
+              (click)="onSubmit()"
+              type="button">
+              Save
+              <i class="plus-outline"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>

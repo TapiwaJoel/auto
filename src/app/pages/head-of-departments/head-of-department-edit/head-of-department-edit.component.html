@@ -1,0 +1,46 @@
+<nb-card [nbSpinner]="loader$ | async" nbSpinnerStatus="danger" style="width: 40vw">
+  <nb-card-header>Edit Head of Department
+  </nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="editHeadOfDepartmentForm">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <div class="form-group">
+              <label for="departmentId">Select Department</label>
+              <select formControlName="departmentId" class="form-control" id="departmentId">
+                <option *ngFor="let department of departments" value="{{department.id}}">
+                  {{department.name}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="recordStatus">Status</label>
+            <select class="form-control" formControlName="recordStatus" id="recordStatus">
+              <option *ngFor="let status of statuses" value="{{status}}">
+                {{status}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="form-group">
+            <button
+              (click)="onSubmit()"
+              [disabled]="!editHeadOfDepartmentForm.valid"
+              class="btn btn-outline-success btn-icon btn-semi-round btn-demo"
+              id="button"
+              type="button">
+              Save
+              <i class="plus-outline"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>

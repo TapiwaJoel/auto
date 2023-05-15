@@ -1,0 +1,18 @@
+<nb-card [nbSpinner]="false" nbSpinnerStatus="danger">
+  <nb-card-header>
+    Booking for Vehicle {{ booking.registrationNumber}}, Service: {{booking.motorServiceCategories}}
+    <button nbButton shape="round" size="small" status="success" style="float: right" (click)="add()"
+            *ngIf="!showApprove">Add Task
+    </button>
+    <nb-toggle [(ngModel)]="toggleNgModel" [(checked)]="checked" (checkedChange)="check($event)" size="small"
+               style="float: right"
+               *ngIf="showApprove">Approve
+    </nb-toggle>
+  </nb-card-header>
+  <nb-card-body>
+    <ng2-smart-table (userRowSelect)="onRowSelect($event)"
+                     [settings]="settings"
+                     [source]="source">
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>
