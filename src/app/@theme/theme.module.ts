@@ -38,6 +38,7 @@ import { DEFAULT_THEME } from './styles/theme.default';
 import { COSMIC_THEME } from './styles/theme.cosmic';
 import { CORPORATE_THEME } from './styles/theme.corporate';
 import { DARK_THEME } from './styles/theme.dark';
+import {UsersModule} from '../pages/users/users.module';
 
 const NB_MODULES = [
   NbLayoutModule,
@@ -45,6 +46,7 @@ const NB_MODULES = [
   NbUserModule,
   NbActionsModule,
   NbSearchModule,
+  UsersModule,
   NbSidebarModule,
   NbContextMenuModule,
   NbSecurityModule,

@@ -16,32 +16,16 @@ export const routes: Routes = [
       .then(m => m.PagesModule),
   },
   {
-    path: 'auth',
+    path: '',
     component: NbAuthComponent,
     children: [
       {
         path: '',
-        component: NbLoginComponent,
+        loadChildren: () => import('app/authentication/authentication.module').then(m => m.AuthenticationModule),
       },
       {
         path: 'login',
-        component: NbLoginComponent,
-      },
-      {
-        path: 'register',
-        component: NbRegisterComponent,
-      },
-      {
-        path: 'logout',
-        component: NbLogoutComponent,
-      },
-      {
-        path: 'request-password',
-        component: NbRequestPasswordComponent,
-      },
-      {
-        path: 'reset-password',
-        component: NbResetPasswordComponent,
+        loadChildren: () => import('app/authentication/authentication.module').then(m => m.AuthenticationModule),
       },
     ],
   },

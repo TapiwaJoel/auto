@@ -36,6 +36,7 @@ export class UserAddComponent implements OnInit {
       phone: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]),
       email: new FormControl('', [Validators.required, Validators.email]),
       role: new FormControl('', Validators.required),
+      password: new FormControl('', Validators.required),
     });
   }
 

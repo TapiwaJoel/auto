@@ -37,13 +37,21 @@
           </div>
         </div>
 
-        <div class="col-sm-12">
+        <div class="col-sm-6">
           <div class="form-group">
             <label for="role">Role</label>
             <select formControlName="role" class="form-control" id="role">
               <option *ngFor="let role of roles" value="{{role.key}}">
                 {{role.val}}</option>
             </select>
+          </div>
+        </div>
+
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input class="form-control" id="password" formControlName="password" placeholder="Password"
+                   type="password">
           </div>
         </div>
       </div>

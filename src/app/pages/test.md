@@ -1,0 +1,3 @@
+https://10.18.32.18:8443/DaasAPI_MFS/get/cdr.VOICE?userid=2250000000001&msisdn=2250566968414&enddate=20230421&pageNum=1&pageSize=1000&appname=2250000000001&hostname=hostname1.com&startdate=20230420&attributes=*&options=NT&format=json
+https://10.18.32.18:8443/DaasAPI_MFS/get/cdr.VOICE?userId=2250000000001&appName=app1&hostname=hostname1.com&startdate=20230420&enddate=20230421&msisdn_key=2250566968414&attributes=*&pageNum=1&maxresults=10000&ageSize=10000&options=NT&format=json
+https://10.18.32.18:8443/DaasAPI_MFS/get/cdr.VOICE?userid=2250000000001&msisdn=2250566968414&appName=2250000000001&hostname=hostname1.com&startdate=20230420&enddate=20230421&attributes=*&options=NT&format=json&pageNum=1&maxresults=1000
