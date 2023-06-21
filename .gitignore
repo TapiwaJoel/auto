@@ -12,6 +12,8 @@
 .classpath
 .c9/
 *.launch
+/dist
+/.angular
 .settings/
 *.sublime-workspace
 
