@@ -21,7 +21,6 @@ export class SignInComponent implements OnInit {
   loading$: Observable<boolean>;
   isSubmitting = false;
 
-
   constructor(private fb: FormBuilder,
               private router: Router,
               private toast: Toast,
@@ -43,7 +42,6 @@ export class SignInComponent implements OnInit {
     this.isSubmitting = true;
     this.authenticationService.login({
       ...this.signInForm.value,
-      counterId: '1',
     }).subscribe(async (loginResponse: any) => {
       localStorage.setItem('auth', JSON.stringify({...loginResponse, username: this.signInForm.value.username}));
 
