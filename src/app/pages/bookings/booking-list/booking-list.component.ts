@@ -18,10 +18,6 @@ export class BookingListComponent implements OnInit {
   settings = {
     actions: false,
     columns: {
-      department: {
-        title: 'Department',
-        type: 'string',
-      },
       registrationNumber: {
         title: 'Reg. Number',
         type: 'string',
@@ -82,13 +78,15 @@ export class BookingListComponent implements OnInit {
     this.store.pipe(select(selectAllBookings))
       .subscribe({
         next: (data) => {
+
+          console.log('data', data);
+
           data = data.map(x => {
             return {
               id: x.id,
-              department: x.vehicle.department,
               registrationNumber: x.vehicle.registrationNumber,
               bookingStatus: x.bookingStatus,
-              motorServiceCategories: x.motorServiceCategories.map(cat => cat.name).join(', '),
+              motorServiceCategories: x.motorServiceCategories.map(cat => cat.category).join(', '),
               additionalInformation: x.additionalInformation,
               recordStatus: x.recordStatus,
               dateCreated: x.dateCreated,

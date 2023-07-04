@@ -9,7 +9,12 @@ import {loadTaskRequest} from '../../tasks/tasks.actions';
 import {TasksEditComponent} from '../../tasks/tasks-edit/tasks-edit.component';
 import {Booking} from '../bookings.entity';
 import {BookingStatus} from '../../utils/booking-status';
-import {editBookingRequest} from '../bookings.actions';
+import {createBookingRequest, editBookingRequest} from '../bookings.actions';
+import jwt_decode from 'jwt-decode';
+import {Router} from '@angular/router';
+import {selectAllMotorServiceCategories} from '../../motor-service-categories/motor-service-categories.selectors';
+import {MotorServiceCategory} from '../../motor-service-categories/motor-service-categories.entity';
+import {loadMotorServiceCategoryRequest} from '../../motor-service-categories/motor-service-categories.actions';
 
 @Component({
   selector: 'ngx-booking-details',
@@ -65,13 +70,45 @@ export class BookingDetailsComponent implements OnInit {
   toggleNgModel: any;
   showApprove = false;
   checked = false;
+  options = [
+    {value: 'DEPARTMENT_DISAPPROVED', label: 'DEPARTMENT_DISAPPROVED'},
+    {value: 'DEPARTMENT_APPROVED', label: 'DEPARTMENT_APPROVED'},
+    {value: 'HALT', label: 'HALT'},
+  ];
 
-  constructor(private dialogService: NbDialogService, private store: Store<AppState>) {
+  motorServiceCategories: Partial<MotorServiceCategory>[] = [];
+  option;
+  services = [];
+  servicesSelected: string[] = [];
+  additionalInformation: string;
+  bookingStatus: string;
+
+  constructor(private dialogService: NbDialogService,
+              private router: Router,
+              private store: Store<AppState>) {
+  }
+
+
+  onChecksChange(selected: boolean, motorServiceCategory: string) {
+    if (selected) {
+      this.servicesSelected.push(motorServiceCategory);
+    } else {
+      const index = this.servicesSelected.indexOf(motorServiceCategory);
+      this.servicesSelected.splice(index, 1);
+    }
   }
 
   ngOnInit(): void {
 
     this.store.dispatch(loadTaskRequest());
+    this.store.dispatch(loadMotorServiceCategoryRequest());
+
+    this.store.pipe(select(selectAllMotorServiceCategories))
+      .subscribe({
+        next: (data) => {
+          this.motorServiceCategories = data;
+        },
+      });
 
     this.store.pipe(select(selectAllTasks))
       .subscribe({
@@ -80,17 +117,28 @@ export class BookingDetailsComponent implements OnInit {
         },
       });
 
-    let user: any = localStorage.getItem('user');
-    user = JSON.parse(user);
+    const auth = localStorage.getItem('auth');
+    if (!auth) {
+      this.router.navigate(['/']);
+      return;
+    }
 
-    if (user.role === 'ROLE_HOD') {
+    const role: any = jwt_decode(JSON.parse(auth).data.accessToken);
+
+    if (role.Role === 'ROLE_HOD') {
       this.showApprove = true;
     }
+
+    console.log('booking', this.booking);
+
+    this.services = this.booking.motorServiceCategories.split(',');
+
+    this.additionalInformation = this.booking.additionalInformation;
+
+    this.services = this.services.map(x => x.trim());
     if (this.booking.bookingStatus === BookingStatus.DEPARTMENT_APPROVED) {
       this.checked = true;
     }
-    console.log(' this.checked ', this.checked);
-    // this.checked = this.booking.bookingStatus === BookingStatus.DEPARTMENT_APPROVED;
   }
 
   onRowSelect($event: any) {
@@ -111,8 +159,6 @@ export class BookingDetailsComponent implements OnInit {
   }
 
   check($event: boolean) {
-    console.log('this.booking', this.booking);
-    console.log('Approve', $event);
     const bookingToUpdate: Partial<Booking> = {
       id: this.booking.id,
     };
@@ -123,6 +169,23 @@ export class BookingDetailsComponent implements OnInit {
     }
 
     this.store.dispatch(editBookingRequest({booking: {...bookingToUpdate}}));
-    console.log('bookingToUpdate', bookingToUpdate);
+  }
+
+
+  onBook() {
+    const booking: Partial<Booking> = {
+      motorServiceCategoryIds: this.servicesSelected,
+    };
+
+    if (this.additionalInformation) {
+      booking.additionalInformation = this.additionalInformation;
+    }
+
+    this.store.dispatch(createBookingRequest({booking}));
+  }
+
+
+  checkChecked(category: string) {
+    return this.services.includes(category);
   }
 }

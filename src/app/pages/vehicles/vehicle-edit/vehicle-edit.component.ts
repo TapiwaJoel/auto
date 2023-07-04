@@ -31,6 +31,7 @@ export class VehicleEditComponent implements OnInit {
   motorServiceCategories: Partial<MotorServiceCategory>[] = [];
   servicesSelected: string[] = [];
   additionalInformation: string;
+  transferReasons = ['Accident Damaged', 'Not Road Worth', 'Sold', 'Transfer to Other Department'];
 
   constructor(private store: Store<AppState>) {
   }
@@ -52,6 +53,7 @@ export class VehicleEditComponent implements OnInit {
       additionalInformation: new FormControl('', Validators.required),
       chassis: new FormControl('', Validators.required),
       recordStatus: new FormControl('', Validators.required),
+      reasonForUpdate: new FormControl('', Validators.required),
     });
 
     this.store.pipe(select(selectAllDepartments))
@@ -62,7 +64,7 @@ export class VehicleEditComponent implements OnInit {
       });
 
     this.editVehicleForm.patchValue({
-      departmentId: this.departments.find(dept => dept.name === this.vehicle.department)?.name,
+      departmentId: this.departments.find(dept => dept.name === this.vehicle.department)?.id,
       registrationNumber: this.vehicle.registrationNumber,
       vin: this.vehicle.vin,
       make: this.vehicle.make,
@@ -72,6 +74,7 @@ export class VehicleEditComponent implements OnInit {
       additionalInformation: this.vehicle.additionalInformation,
       chassis: this.vehicle.chassis,
       recordStatus: this.vehicle.recordStatus,
+      reasonForUpdate: this.vehicle.reasonForUpdate,
     });
 
     this.store.dispatch(loadMotorServiceCategoryRequest());

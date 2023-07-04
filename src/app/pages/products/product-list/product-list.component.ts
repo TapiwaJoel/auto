@@ -33,14 +33,6 @@ export class ProductListComponent implements OnInit {
         title: 'Qty Available In Stock',
         type: 'string',
       },
-      code: {
-        title: 'Code',
-        type: 'string',
-      },
-      currency: {
-        title: 'Currency',
-        type: 'string',
-      },
       recordStatus: {
         title: 'Status',
         type: 'string',

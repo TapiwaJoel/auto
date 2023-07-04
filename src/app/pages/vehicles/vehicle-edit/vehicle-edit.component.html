@@ -8,7 +8,7 @@
               <div class="form-group">
                 <div class="form-group">
                   <label for="departmentId">Select Department</label>
-                  <select formControlName="departmentId" class="form-control" id="departmentId">
+                  <select class="form-control" formControlName="departmentId" id="departmentId">
                     <option *ngFor="let department of departments" value="{{department.id}}">
                       {{department.name}}</option>
                   </select>
@@ -18,7 +18,7 @@
             <div class="col-sm-4">
               <div class="form-group">
                 <label for="registrationNumber">Reg. Number</label>
-                <input class="form-control" id="registrationNumber" formControlName="registrationNumber"
+                <input class="form-control" formControlName="registrationNumber" id="registrationNumber"
                        placeholder="Reg. Number" type="text">
               </div>
             </div>
@@ -26,7 +26,7 @@
               <div class="form-group">
                 <div class="form-group">
                   <label for="vin">VIN</label>
-                  <input class="form-control" id="vin" formControlName="vin" placeholder="VIN" type="text">
+                  <input class="form-control" formControlName="vin" id="vin" placeholder="VIN" type="text">
                 </div>
               </div>
             </div>
@@ -34,28 +34,28 @@
               <div class="form-group">
                 <div class="form-group">
                   <label for="make">Make</label>
-                  <input class="form-control" id="make" formControlName="make" placeholder="Make" type="text">
+                  <input class="form-control" formControlName="make" id="make" placeholder="Make" type="text">
                 </div>
               </div>
             </div>
             <div class="col-sm-4">
               <div class="form-group">
                 <label for="model">Model</label>
-                <input class="form-control" id="model" formControlName="model" placeholder="Model"
+                <input class="form-control" formControlName="model" id="model" placeholder="Model"
                        type="text">
               </div>
             </div>
             <div class="col-sm-4">
               <div class="form-group">
                 <label for="color">Color</label>
-                <input class="form-control" id="color" formControlName="color" placeholder="Color"
+                <input class="form-control" formControlName="color" id="color" placeholder="Color"
                        type="text">
               </div>
             </div>
             <div class="col-sm-4">
               <div class="form-group">
                 <label for="yearOfManufacturing">Year</label>
-                <input class="form-control" id="yearOfManufacturing" formControlName="yearOfManufacturing"
+                <input class="form-control" formControlName="yearOfManufacturing" id="yearOfManufacturing"
                        placeholder="Year"
                        type="text">
               </div>
@@ -63,7 +63,7 @@
             <div class="col-sm-4">
               <div class="form-group">
                 <label for="chassis">Chassis</label>
-                <input class="form-control" id="chassis" formControlName="chassis"
+                <input class="form-control" formControlName="chassis" id="chassis"
                        placeholder="Chassis"
                        type="text">
               </div>
@@ -71,7 +71,7 @@
             <div class="col-sm-4">
               <div class="form-group">
                 <label for="recordStatus">Status</label>
-                <select formControlName="recordStatus" class="form-control" id="recordStatus">
+                <select class="form-control" formControlName="recordStatus" id="recordStatus">
                   <option *ngFor="let status of statuses" value="{{status}}">
                     {{status}}</option>
                 </select>
@@ -80,8 +80,17 @@
             <div class="col-sm-4">
               <div class="form-group">
                 <label for="additionalInformation">Additional Information</label>
-                <textarea class="form-control" id="additionalInformation" formControlName="additionalInformation"
+                <textarea class="form-control" formControlName="additionalInformation" id="additionalInformation"
                           placeholder="Additional Information"></textarea>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label for="recordStatus">Transfer Reason</label>
+                <select class="form-control" formControlName="reasonForUpdate" id="reasonForUpdate">
+                  <option *ngFor="let transferReason of transferReasons" value="{{transferReason}}">
+                    {{transferReason}}</option>
+                </select>
               </div>
             </div>
           </div>
@@ -89,10 +98,10 @@
             <div class="col-lg-12">
               <div class="form-group">
                 <button
+                  (click)="onSubmit()"
                   [disabled]="!editVehicleForm.valid"
                   class="btn btn-outline-success btn-icon btn-semi-round btn-demo"
                   id="button"
-                  (click)="onSubmit()"
                   type="button">
                   Save
                   <i class="plus-outline"></i>
@@ -107,25 +116,25 @@
           <div class="col-sm-12" style="margin-bottom: .5rem; margin-top: 1.5rem; font-weight: bold;">
             Kindly Select Service you want
           </div>
-          <div class="col-sm-12" *ngFor="let motorServiceCategory of motorServiceCategories">
+          <div *ngFor="let motorServiceCategory of motorServiceCategories" class="col-sm-12">
             <nb-checkbox
               (checkedChange)="onChecksChange($event, motorServiceCategory.id)">
-              {{motorServiceCategory.name}}: {{motorServiceCategory.description}}</nb-checkbox>
+              {{motorServiceCategory.category}}: {{motorServiceCategory.description}}</nb-checkbox>
           </div>
         </div>
         <div class="form-group" style="margin-top: 1.5rem">
           <label for="additionalInformation">Additional Information</label>
-          <textarea class="form-control" id="additionalInfo" [(ngModel)]="additionalInformation"
+          <textarea [(ngModel)]="additionalInformation" class="form-control" id="additionalInfo"
                     placeholder="Additional Information"></textarea>
         </div>
         <div class="row">
           <div class="col-lg-12">
             <div class="form-group">
               <button
+                (click)="onBook()"
                 [disabled]="!servicesSelected.length"
                 class="btn btn-outline-success btn-icon btn-semi-round btn-demo"
                 id="buttonBook"
-                (click)="onBook()"
                 type="button">
                 Book
                 <i class="plus-outline"></i>

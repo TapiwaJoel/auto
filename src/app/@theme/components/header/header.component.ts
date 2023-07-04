@@ -65,22 +65,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.store.pipe(select(selectAllUsers))
       .subscribe({
         next: (data) => {
-          console.log('users', data);
-          if (!data.length) {
-            this.router.navigate(['/']);
-            return;
-          }
-          console.log('auth in header', JSON.parse(auth).username);
           this.users = data;
           const foundUser = this.users.find(user => user.email === JSON.parse(auth).username);
           this.user = {name: foundUser?.firstName + ' ' + foundUser?.lastName};
         },
       });
-
-
-    //    this.userService.getUsers()
-    //   .pipe(takeUntil(this.destroy$))
-    //   .subscribe((users: any) => this.user = users.nick);
 
     const {xl} = this.breakpointService.getBreakpointsMap();
     this.themeService.onMediaQueryChange()
@@ -114,9 +103,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  changeTheme(themeName: string) {
-    this.themeService.changeTheme(themeName);
-  }
+
 
   toggleSidebar(): boolean {
     this.sidebarService.toggle(true, 'menu-sidebar');

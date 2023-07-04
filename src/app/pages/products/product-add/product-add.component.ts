@@ -36,6 +36,7 @@ export class ProductAddComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log('...this.addProductForm.value', this.addProductForm.value);
     this.store.dispatch(createProductRequest({
       product:
         {...this.addProductForm.value},

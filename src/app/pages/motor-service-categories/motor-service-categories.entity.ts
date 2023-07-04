@@ -1,6 +1,6 @@
 export interface MotorServiceCategory {
   id: string;
-  name: string;
+  category: string;
   description: string;
   recordStatus: string;
   dateCreated: string;

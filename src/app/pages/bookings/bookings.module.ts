@@ -8,12 +8,20 @@ import {EffectsModule} from '@ngrx/effects';
 import {BookingEffects} from './bookings.effects';
 import {bookingReducer} from './bookings.reducer';
 import {BookingsComponent} from './bookings.component';
-import {NbButtonModule, NbCardModule, NbSpinnerModule, NbToggleModule} from '@nebular/theme';
+import {
+  NbButtonModule,
+  NbCardModule, NbCheckboxModule,
+  NbListModule,
+  NbRadioModule,
+  NbSpinnerModule,
+  NbToggleModule,
+} from '@nebular/theme';
 import {Ng2SmartTableModule} from 'ng2-smart-table';
 import {DepartmentsModule} from '../departments/departments.module';
 import {BookingDetailsComponent} from './booking-details/booking-details.component';
 import {TasksModule} from '../tasks/tasks.module';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MotorServiceCategoriesModule} from '../motor-service-categories/motor-service-categories.module';
 
 @NgModule({
   declarations: [
@@ -26,6 +34,7 @@ import {FormsModule} from "@angular/forms";
     BookingsRoutingModule,
     DepartmentsModule,
     TasksModule,
+    MotorServiceCategoriesModule,
     StoreModule.forFeature('bookings', bookingReducer),
     EffectsModule.forFeature([BookingEffects]),
     NbSpinnerModule,
@@ -34,6 +43,10 @@ import {FormsModule} from "@angular/forms";
     NbButtonModule,
     NbToggleModule,
     FormsModule,
+    NbRadioModule,
+    NbListModule,
+    NbCheckboxModule,
+    ReactiveFormsModule,
   ],
 })
 export class BookingsModule {

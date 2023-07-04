@@ -30,7 +30,6 @@ export class SignInComponent implements OnInit {
   }
 
   ngOnInit() {
-    localStorage.clear();
     this.loading$ = this.store.pipe(select(selectAuthenticationLoading));
     this.signInForm = this.fb.group({
       'username': new FormControl(null),
@@ -43,6 +42,8 @@ export class SignInComponent implements OnInit {
     this.authenticationService.login({
       ...this.signInForm.value,
     }).subscribe(async (loginResponse: any) => {
+
+      console.log('loginResponse', loginResponse);
       localStorage.setItem('auth', JSON.stringify({...loginResponse, username: this.signInForm.value.username}));
 
       this.store.dispatch(loadUserRequest());

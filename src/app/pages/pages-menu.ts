@@ -2,11 +2,6 @@ import {NbMenuItem} from '@nebular/theme';
 
 export const MENU_ITEMS: NbMenuItem[] = [
   {
-    title: 'Dashboard',
-    icon: 'home-outline',
-    link: '/pages/iot-dashboard',
-  },
-  {
     title: 'FEATURES',
     group: true,
   },
@@ -55,6 +50,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     link: '/pages/motor-service-categories',
   },
 ];
+
 export const HOD_MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'FEATURES',

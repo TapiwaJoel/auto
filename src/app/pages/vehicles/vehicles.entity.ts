@@ -17,5 +17,6 @@ export interface Vehicle {
   additionalInformation: string;
   vin: string;
   recordStatus: string;
+  reasonForUpdate: string;
   dateCreated: string;
 }

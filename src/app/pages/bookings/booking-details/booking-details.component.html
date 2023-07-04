@@ -1,18 +1,79 @@
-<nb-card [nbSpinner]="false" nbSpinnerStatus="danger">
+<nb-card [nbSpinner]="false" nbSpinnerStatus="danger" style="width: 60vw">
   <nb-card-header>
-    Booking for Vehicle {{ booking.registrationNumber}}, Service: {{booking.motorServiceCategories}}
-    <button nbButton shape="round" size="small" status="success" style="float: right" (click)="add()"
-            *ngIf="!showApprove">Add Task
-    </button>
-    <nb-toggle [(ngModel)]="toggleNgModel" [(checked)]="checked" (checkedChange)="check($event)" size="small"
-               style="float: right"
-               *ngIf="showApprove">Approve
-    </nb-toggle>
+    Booking Details
   </nb-card-header>
   <nb-card-body>
-    <ng2-smart-table (userRowSelect)="onRowSelect($event)"
-                     [settings]="settings"
-                     [source]="source">
-    </ng2-smart-table>
+
+    <div class="row">
+      <div class="col-sm-12" style="margin-bottom: .5rem; margin-top: 1.5rem; font-weight: bold;">
+        Kindly Select Service you want
+      </div>
+      <div *ngFor="let motorServiceCategory of motorServiceCategories" class="col-sm-12">
+        <nb-checkbox
+          (checkedChange)="onChecksChange($event, motorServiceCategory.id)" [checked]="checkChecked(motorServiceCategory.category)">
+          {{motorServiceCategory.category}} <{{motorServiceCategory.description}}></nb-checkbox>
+      </div>
+    </div>
+    <div class="form-group" style="margin-top: 1.5rem">
+      <label for="additionalInfo">Additional Information</label>
+      <textarea [(ngModel)]="additionalInformation" class="form-control" id="additionalInfo"
+                placeholder="Additional Information"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="bookingStatus">Transfer Reason</label>
+        <select class="form-control" [(ngModel)]="bookingStatus" id="reasonForUpdate">
+          <option *ngFor="let option of options" value="{{option}}">
+            {{option}}</option>
+        </select>
+      </div>
+
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="form-group">
+          <button
+            (click)="onBook()"
+            [disabled]="!servicesSelected.length"
+            class="btn btn-outline-success btn-icon btn-semi-round btn-demo"
+            id="buttonBook"
+            type="button">
+            Book
+            <i class="plus-outline"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+<!--    <div class="row">-->
+<!--      <div class="col-6 mb-4">-->
+<!--        <p style="font-size: 1rem; font-weight: bolder">Service Categories for-->
+<!--          Vehicle {{booking.registrationNumber}}</p>-->
+<!--        <nb-list>-->
+<!--          <nb-list-item *ngFor="let service of services">-->
+<!--            {{ service }}-->
+<!--          </nb-list-item>-->
+<!--        </nb-list>-->
+<!--      </div>-->
+
+<!--    </div>-->
+    <!--    <div>-->
+    <!--      Booking Details-->
+    <!--      <br/>-->
+    <!--      {{ booking.registrationNumber}}, Service: {{booking.motorServiceCategories}}-->
+    <!--    </div>-->
+
+    <!--    <button (click)="add()" *ngIf="!showApprove" nbButton shape="round" size="small" status="success"-->
+    <!--            style="float: right">Add Task-->
+    <!--    </button>-->
+    <!--    <nb-radio-group [(ngModel)]="option">-->
+    <!--      <nb-radio-->
+    <!--        *ngFor="let option of options"-->
+    <!--        [value]="option.value">-->
+    <!--        {{ option.label }}-->
+    <!--      </nb-radio>-->
+    <!--    </nb-radio-group>-->
+    <!--        <ng2-smart-table (userRowSelect)="onRowSelect($event)"-->
+    <!--                         [settings]="settings"-->
+    <!--                         [source]="source">-->
+    <!--        </ng2-smart-table>-->
   </nb-card-body>
 </nb-card>

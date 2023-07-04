@@ -17,8 +17,8 @@ export class MotorServiceCategoryListComponent implements OnInit {
   settings = {
     actions: false,
     columns: {
-      name: {
-        title: 'Name',
+      category: {
+        title: 'Category Name',
         type: 'string',
       },
       description: {

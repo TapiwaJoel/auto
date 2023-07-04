@@ -25,7 +25,7 @@ export class MotorServiceCategoryAddComponent implements OnInit {
     this.loader$ = this.store.pipe(select(selectMotorServiceCategoryLoading));
 
     this.addMotorServiceCategoryForm = new FormGroup({
-      name: new FormControl('', Validators.required),
+      category: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
     });
   }

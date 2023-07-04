@@ -18,7 +18,7 @@ export class VehicleAddComponent implements OnInit {
 
   addVehicleForm: FormGroup;
   loader$: Observable<boolean>;
-  departments: Partial<Department>[];
+  departments: Partial<Department>[] = [];
 
   constructor(private store: Store<AppState>) {
   }

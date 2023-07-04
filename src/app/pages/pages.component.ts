@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
-import { MENU_ITEMS } from './pages-menu';
+import {HOD_MENU_ITEMS, MENU_ITEMS} from './pages-menu';
+import {Router} from '@angular/router';
+import jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'ngx-pages',
@@ -15,4 +17,25 @@ import { MENU_ITEMS } from './pages-menu';
 export class PagesComponent {
 
   menu = MENU_ITEMS;
+
+
+  constructor(private router: Router) {
+
+    const auth = localStorage.getItem('auth');
+    if (!auth) {
+      this.router.navigate(['/']);
+      return;
+    }
+
+    const role: any = jwt_decode(JSON.parse(auth).data.accessToken);
+    console.log('roles', role);
+    // Role
+    // "ROLE_HOD"
+
+    if (role.Role === 'ROLE_HOD') {
+      this.menu = HOD_MENU_ITEMS;
+    } else {
+      this.menu = MENU_ITEMS;
+    }
+  }
 }
