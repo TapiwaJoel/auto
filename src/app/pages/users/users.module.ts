@@ -15,6 +15,7 @@ import {userReducer} from './users.reducer';
 import {UserEffects} from './users.effects';
 import {DepartmentsModule} from '../departments/departments.module';
 import {HeadOfDepartmentsModule} from '../head-of-departments/head-of-departments.module';
+import {MechanicsModule} from '../mechanics/mechanics.module';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import {HeadOfDepartmentsModule} from '../head-of-departments/head-of-department
     Ng2SmartTableModule,
     DepartmentsModule,
     HeadOfDepartmentsModule,
+    MechanicsModule,
     StoreModule.forFeature('users', userReducer),
     EffectsModule.forFeature([UserEffects]),
     NbSpinnerModule,

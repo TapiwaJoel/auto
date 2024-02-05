@@ -10,8 +10,9 @@
       </div>
       <div *ngFor="let motorServiceCategory of motorServiceCategories" class="col-sm-12">
         <nb-checkbox
-          (checkedChange)="onChecksChange($event, motorServiceCategory.id)" [checked]="checkChecked(motorServiceCategory.category)">
-          {{motorServiceCategory.category}} <{{motorServiceCategory.description}}></nb-checkbox>
+          (checkedChange)="onChecksChange($event, motorServiceCategory.id)"
+          [checked]="checkChecked(motorServiceCategory.name)">
+          {{motorServiceCategory.name}} <{{motorServiceCategory.description}}></nb-checkbox>
       </div>
     </div>
     <div class="form-group" style="margin-top: 1.5rem">
@@ -21,10 +22,10 @@
     </div>
 
     <div class="form-group">
-        <label for="bookingStatus">Transfer Reason</label>
+        <label for="reasonForUpdate">Booking Status</label>
         <select class="form-control" [(ngModel)]="bookingStatus" id="reasonForUpdate">
-          <option *ngFor="let option of options" value="{{option}}">
-            {{option}}</option>
+          <option *ngFor="let option of options" value="{{option.value}}">
+            {{option.label}}</option>
         </select>
       </div>
 
@@ -33,47 +34,14 @@
         <div class="form-group">
           <button
             (click)="onBook()"
-            [disabled]="!servicesSelected.length"
             class="btn btn-outline-success btn-icon btn-semi-round btn-demo"
             id="buttonBook"
             type="button">
-            Book
+            Edit
             <i class="plus-outline"></i>
           </button>
         </div>
       </div>
     </div>
-<!--    <div class="row">-->
-<!--      <div class="col-6 mb-4">-->
-<!--        <p style="font-size: 1rem; font-weight: bolder">Service Categories for-->
-<!--          Vehicle {{booking.registrationNumber}}</p>-->
-<!--        <nb-list>-->
-<!--          <nb-list-item *ngFor="let service of services">-->
-<!--            {{ service }}-->
-<!--          </nb-list-item>-->
-<!--        </nb-list>-->
-<!--      </div>-->
-
-<!--    </div>-->
-    <!--    <div>-->
-    <!--      Booking Details-->
-    <!--      <br/>-->
-    <!--      {{ booking.registrationNumber}}, Service: {{booking.motorServiceCategories}}-->
-    <!--    </div>-->
-
-    <!--    <button (click)="add()" *ngIf="!showApprove" nbButton shape="round" size="small" status="success"-->
-    <!--            style="float: right">Add Task-->
-    <!--    </button>-->
-    <!--    <nb-radio-group [(ngModel)]="option">-->
-    <!--      <nb-radio-->
-    <!--        *ngFor="let option of options"-->
-    <!--        [value]="option.value">-->
-    <!--        {{ option.label }}-->
-    <!--      </nb-radio>-->
-    <!--    </nb-radio-group>-->
-    <!--        <ng2-smart-table (userRowSelect)="onRowSelect($event)"-->
-    <!--                         [settings]="settings"-->
-    <!--                         [source]="source">-->
-    <!--        </ng2-smart-table>-->
   </nb-card-body>
 </nb-card>

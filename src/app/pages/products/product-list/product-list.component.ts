@@ -6,6 +6,10 @@ import {AppState} from '../../app-store/app-state';
 import {loadProductRequest} from '../products.actions';
 import {selectAllProducts} from '../products.selectors';
 import {ProductAddComponent} from '../product-add/product-add.component';
+import {
+  MotorServiceCategoryEditComponent,
+} from '../../motor-service-categories/motor-service-category-edit/motor-service-category-edit.component';
+import {ProductEditComponent} from '../product-edit/product-edit.component';
 
 @Component({
   selector: 'ngx-product-list',
@@ -17,6 +21,10 @@ export class ProductListComponent implements OnInit {
   settings = {
     actions: false,
     columns: {
+      stockCode: {
+        title: 'Stock Code',
+        type: 'string',
+      },
       name: {
         title: 'Name',
         type: 'string',
@@ -25,12 +33,12 @@ export class ProductListComponent implements OnInit {
         title: 'Description',
         type: 'string',
       },
-      price: {
-        title: 'Price',
-        type: 'string',
-      },
       quantityAvailableInStock: {
         title: 'Qty Available In Stock',
+        type: 'string',
+      },
+      usedQuantity: {
+        title: 'Qty Used',
         type: 'string',
       },
       recordStatus: {
@@ -85,5 +93,10 @@ export class ProductListComponent implements OnInit {
   }
 
   onRowSelect($event: any) {
+    this.dialogService.open(ProductEditComponent, {
+      context: {
+        product: $event.data,
+      },
+    });
   }
 }

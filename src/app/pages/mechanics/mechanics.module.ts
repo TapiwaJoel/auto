@@ -9,6 +9,8 @@ import {StoreModule} from '@ngrx/store';
 import {EffectsModule} from '@ngrx/effects';
 import {mechanicReducer} from './mechanic.reducer';
 import {MechanicEffects} from './mechanic.effects';
+import {NbButtonModule, NbCardModule, NbSpinnerModule} from '@nebular/theme';
+import {Ng2SmartTableModule} from 'ng2-smart-table';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,10 @@ import {MechanicEffects} from './mechanic.effects';
     MechanicsRoutingModule,
     StoreModule.forFeature('mechanics', mechanicReducer),
     EffectsModule.forFeature([MechanicEffects]),
+    NbButtonModule,
+    NbCardModule,
+    Ng2SmartTableModule,
+    NbSpinnerModule,
   ],
 })
 export class MechanicsModule {

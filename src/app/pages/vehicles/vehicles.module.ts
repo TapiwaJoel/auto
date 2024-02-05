@@ -6,7 +6,14 @@ import {VehicleListComponent} from './vehicle-list/vehicle-list.component';
 import {VehicleAddComponent} from './vehicle-add/vehicle-add.component';
 import {VehicleEditComponent} from './vehicle-edit/vehicle-edit.component';
 import {VehiclesComponent} from './vehicles.component';
-import {NbButtonModule, NbCardModule, NbCheckboxModule, NbSpinnerModule, NbTabsetModule} from '@nebular/theme';
+import {
+  NbButtonModule,
+  NbCardModule,
+  NbCheckboxModule,
+  NbSelectModule,
+  NbSpinnerModule,
+  NbTabsetModule
+} from '@nebular/theme';
 import {Ng2SmartTableModule} from 'ng2-smart-table';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {StoreModule} from '@ngrx/store';
@@ -41,6 +48,7 @@ import {BookingsModule} from '../bookings/bookings.module';
     NbTabsetModule,
     NbCheckboxModule,
     FormsModule,
+    NbSelectModule,
   ],
 })
 export class VehiclesModule {

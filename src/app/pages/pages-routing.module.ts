@@ -33,6 +33,10 @@ const routes: Routes = [{
         .then(m => m.MotorServiceCategoriesModule),
     },
     {
+      path: 'motor-service-jobs', loadChildren: () => import('./motor-service-jobs/motor-service-jobs.module')
+        .then(m => m.MotorServiceJobsModule),
+    },
+    {
       path: 'users',
       loadChildren: () => import('./users/users.module')
         .then(m => m.UsersModule),
@@ -51,6 +55,9 @@ const routes: Routes = [{
       path: 'bookings',
       loadChildren: () => import('./bookings/bookings.module')
         .then(m => m.BookingsModule),
+    }, {
+      path: 'mechanics', loadChildren: () => import('./mechanics/mechanics.module')
+        .then(m => m.MechanicsModule),
     },
     {
       path: '',

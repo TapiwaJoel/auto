@@ -18,14 +18,18 @@ export class RequisitionService {
     return this.http.get(this.config.apiUrl + pathUrl);
   }
 
+  getByRequisitionNumber(requisitionNumber: string) {
+    const pathUrl = `/products/${requisitionNumber}`;
+    return this.http.get(this.config.apiUrl + pathUrl);
+  }
+
   post(user: Partial<Requisition>) {
     const pathUrl = '/requisition';
     return this.http.post(this.config.apiUrl + pathUrl, user);
   }
 
   put(user: Partial<Requisition>) {
-    const pathUrl = '/requisition';
+    const pathUrl = '/requisition/';
     return this.http.put(this.config.apiUrl + pathUrl + user.id, user);
   }
 }
-

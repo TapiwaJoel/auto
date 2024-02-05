@@ -9,12 +9,13 @@ import {loadTaskRequest} from '../../tasks/tasks.actions';
 import {TasksEditComponent} from '../../tasks/tasks-edit/tasks-edit.component';
 import {Booking} from '../bookings.entity';
 import {BookingStatus} from '../../utils/booking-status';
-import {createBookingRequest, editBookingRequest} from '../bookings.actions';
+import {editBookingRequest} from '../bookings.actions';
 import jwt_decode from 'jwt-decode';
 import {Router} from '@angular/router';
 import {selectAllMotorServiceCategories} from '../../motor-service-categories/motor-service-categories.selectors';
 import {MotorServiceCategory} from '../../motor-service-categories/motor-service-categories.entity';
 import {loadMotorServiceCategoryRequest} from '../../motor-service-categories/motor-service-categories.actions';
+import {Toast} from '../../utils/toast';
 
 @Component({
   selector: 'ngx-booking-details',
@@ -22,7 +23,7 @@ import {loadMotorServiceCategoryRequest} from '../../motor-service-categories/mo
   styleUrls: ['./booking-details.component.scss'],
 })
 export class BookingDetailsComponent implements OnInit {
-  @Input() booking: any;
+  @Input() booking: Partial<Booking>;
   source: LocalDataSource = new LocalDataSource();
   settings = {
     actions: false,
@@ -67,10 +68,9 @@ export class BookingDetailsComponent implements OnInit {
       },
     },
   };
-  toggleNgModel: any;
   showApprove = false;
   checked = false;
-  options = [
+  options = [{value: 'PENDING', label: 'PENDING'},
     {value: 'DEPARTMENT_DISAPPROVED', label: 'DEPARTMENT_DISAPPROVED'},
     {value: 'DEPARTMENT_APPROVED', label: 'DEPARTMENT_APPROVED'},
     {value: 'HALT', label: 'HALT'},
@@ -83,8 +83,7 @@ export class BookingDetailsComponent implements OnInit {
   additionalInformation: string;
   bookingStatus: string;
 
-  constructor(private dialogService: NbDialogService,
-              private router: Router,
+  constructor(private dialogService: NbDialogService, private router: Router, private toast: Toast,
               private store: Store<AppState>) {
   }
 
@@ -99,7 +98,6 @@ export class BookingDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.store.dispatch(loadTaskRequest());
     this.store.dispatch(loadMotorServiceCategoryRequest());
 
@@ -129,10 +127,10 @@ export class BookingDetailsComponent implements OnInit {
       this.showApprove = true;
     }
 
-    console.log('booking', this.booking);
+    this.servicesSelected = this.booking.motorServiceCategoryIds.split(',').map(x => x.trim());
+    this.bookingStatus = this.booking.bookingStatus;
 
     this.services = this.booking.motorServiceCategories.split(',');
-
     this.additionalInformation = this.booking.additionalInformation;
 
     this.services = this.services.map(x => x.trim());
@@ -159,9 +157,11 @@ export class BookingDetailsComponent implements OnInit {
   }
 
   check($event: boolean) {
+
     const bookingToUpdate: Partial<Booking> = {
-      id: this.booking.id,
+      ...this.booking,
     };
+
     if ($event) {
       bookingToUpdate.bookingStatus = BookingStatus.DEPARTMENT_APPROVED;
     } else {
@@ -171,17 +171,20 @@ export class BookingDetailsComponent implements OnInit {
     this.store.dispatch(editBookingRequest({booking: {...bookingToUpdate}}));
   }
 
-
   onBook() {
     const booking: Partial<Booking> = {
-      motorServiceCategoryIds: this.servicesSelected,
+      motorServiceCategoryIds: this.servicesSelected, id: this.booking.id, bookingStatus: this.bookingStatus
     };
 
+    console.log('this.bookingStatus', this.bookingStatus);
     if (this.additionalInformation) {
       booking.additionalInformation = this.additionalInformation;
     }
-
-    this.store.dispatch(createBookingRequest({booking}));
+    if (!this.servicesSelected.length) {
+      this.toast.makeToast('danger', 'Error', 'Kindly select Services');
+      return;
+    }
+    this.store.dispatch(editBookingRequest({booking}));
   }
 
 

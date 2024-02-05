@@ -6,7 +6,6 @@ import * as HeadOfDepartmentsActions from './head-of-departments.actions';
 import {HeadOfDepartment} from './head-of-departments.entity';
 import {HeadOfDepartmentService} from './head-of-departments.service';
 import {of} from 'rxjs';
-import {createHeadOfDepartmentRequest, editHeadOfDepartmentRequest} from './head-of-departments.actions';
 
 @Injectable()
 export class HeadOfDepartmentsEffects {

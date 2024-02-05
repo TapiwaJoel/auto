@@ -42,35 +42,13 @@ export class SignInComponent implements OnInit {
     this.authenticationService.login({
       ...this.signInForm.value,
     }).subscribe(async (loginResponse: any) => {
-
       console.log('loginResponse', loginResponse);
       localStorage.setItem('auth', JSON.stringify({...loginResponse, username: this.signInForm.value.username}));
-
       this.store.dispatch(loadUserRequest());
-
       this.router.navigate(['/pages']).then((data) => {
         this.isSubmitting = false;
       });
-      //
-      // if (loginResponse.body.userDto.roles) {
-      //   console.log('role', loginResponse.body.userDto);
-      //   const role = loginResponse.body.userDto.roles[0].name;
-      //   if (role !== 'CASHIER') {
-      //     localStorage.setItem('auth', JSON.stringify(loginResponse));
-      //     this.authenticationService.loggedInUser.next(loginResponse.body.userDto.username);
-      //     this.router.navigate(['/pages']).then((data) => {
-      //       this.isSubmitting = false;
-      //     });
-      //   } else {
-      //     const title = 'Error';
-      //     const content = `You are not authorised to access this system`;
-      //     const status: NbComponentStatus = 'danger';
-      //     this.toast.makeToast(status, title, content);
-      //     this.isSubmitting = false;
-      //   }
-      // }
     }, error => {
-      console.log('error', error);
       const title = 'Error';
       const content = `Invalid credentials`;
       const status: NbComponentStatus = 'danger';

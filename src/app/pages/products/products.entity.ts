@@ -2,10 +2,10 @@ export interface Product {
   id: string;
   name: string;
   description: string;
-  price: number;
+  requisitionNumber: number;
   quantityAvailableInStock: number;
-  code: string;
-  currency: string;
+  stockCode: string;
+  quantity: number;
   recordStatus: string;
   dateCreated: string;
 }

@@ -5,15 +5,15 @@
         <form [formGroup]="editVehicleForm">
           <div class="row">
             <div class="col-sm-4">
-              <div class="form-group">
-                <div class="form-group">
-                  <label for="departmentId">Select Department</label>
-                  <select class="form-control" formControlName="departmentId" id="departmentId">
-                    <option *ngFor="let department of departments" value="{{department.id}}">
-                      {{department.name}}</option>
-                  </select>
-                </div>
-              </div>
+
+              <label for="departmentId">Select Department</label>
+              <br/>
+              <nb-select [compareWith]="compareById" [selected]="{id:this.selectDept.id}" formControlName="departmentId"
+                         id="departmentId" style="width:  100%"
+              >
+                <nb-option *ngFor="let department of departments" value="{{department.id}}">
+                  {{department.name}}</nb-option>
+              </nb-select>
             </div>
             <div class="col-sm-4">
               <div class="form-group">
@@ -86,8 +86,8 @@
             </div>
             <div class="col-sm-4">
               <div class="form-group">
-                <label for="recordStatus">Transfer Reason</label>
-                <select class="form-control" formControlName="reasonForUpdate" id="reasonForUpdate">
+                <label for="transferReason">Transfer Reason</label>
+                <select class="form-control" formControlName="transferReason" id="transferReason">
                   <option *ngFor="let transferReason of transferReasons" value="{{transferReason}}">
                     {{transferReason}}</option>
                 </select>
@@ -99,7 +99,6 @@
               <div class="form-group">
                 <button
                   (click)="onSubmit()"
-                  [disabled]="!editVehicleForm.valid"
                   class="btn btn-outline-success btn-icon btn-semi-round btn-demo"
                   id="button"
                   type="button">
@@ -119,7 +118,7 @@
           <div *ngFor="let motorServiceCategory of motorServiceCategories" class="col-sm-12">
             <nb-checkbox
               (checkedChange)="onChecksChange($event, motorServiceCategory.id)">
-              {{motorServiceCategory.category}}: {{motorServiceCategory.description}}</nb-checkbox>
+              {{motorServiceCategory.name}}: {{motorServiceCategory.description}}</nb-checkbox>
           </div>
         </div>
         <div class="form-group" style="margin-top: 1.5rem">

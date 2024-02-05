@@ -1,1 +1,46 @@
-<p>requisitions-edit works!</p>
+<nb-card [nbSpinner]="loader$ | async" nbSpinnerStatus="danger" style="width: 40vw">
+  <nb-card-header>Edit Requisition
+  </nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="addRequisitionForm">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <div class="form-group">
+              <label for="firstName">Description</label>
+              <input class="form-control" formControlName="description" id="firstName" placeholder="Description"
+                     type="text">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="recordStatus">Status</label>
+            <select class="form-control" formControlName="recordStatus" id="recordStatus">
+              <option *ngFor="let status of statuses" value="{{status}}">
+                {{ status }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="form-group">
+            <button
+              (click)="onSubmit()"
+              [disabled]="!addRequisitionForm.valid"
+              class="btn btn-outline-success btn-icon btn-semi-round btn-demo"
+              id="button"
+              type="button">
+              Save
+              <i class="plus-outline"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>

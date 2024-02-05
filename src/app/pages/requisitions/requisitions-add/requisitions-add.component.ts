@@ -33,7 +33,6 @@ export class RequisitionsAddComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('Here', 'submitting');
     this.store.dispatch(createRequest({requisition: {...this.addRequisitionForm.value}}));
   }
 }

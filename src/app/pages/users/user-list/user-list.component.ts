@@ -14,6 +14,7 @@ import {UserEditComponent} from '../user-edit/user-edit.component';
   styleUrls: ['./user-list.component.scss'],
 })
 export class UserListComponent implements OnInit {
+
   source: LocalDataSource = new LocalDataSource();
   settings = {
     actions: false,
@@ -80,6 +81,7 @@ export class UserListComponent implements OnInit {
     this.store.pipe(select(selectAllUsers))
       .subscribe({
         next: (data) => {
+          console.log('data users', data);
           this.source.load(data);
         },
       });

@@ -22,7 +22,7 @@ export class ProductService {
   }
 
   put(product: Partial<Product>) {
-    const pathUrl = '/products';
+    const pathUrl = '/products/';
     return this.http.put(this.config.apiUrl + pathUrl + product.id, product);
   }
 }

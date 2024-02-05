@@ -7,6 +7,9 @@ import {loadBookingRequest} from '../bookings.actions';
 import {selectAllBookings} from '../bookings.selectors';
 import {loadDepartmentRequest} from '../../departments/departments.actions';
 import {BookingDetailsComponent} from '../booking-details/booking-details.component';
+import {MotorServiceCategory} from '../../motor-service-categories/motor-service-categories.entity';
+import jwt_decode from 'jwt-decode';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'ngx-booking-list',
@@ -15,6 +18,8 @@ import {BookingDetailsComponent} from '../booking-details/booking-details.compon
 })
 export class BookingListComponent implements OnInit {
   source: LocalDataSource = new LocalDataSource();
+  role = '';
+  departmentId = '';
   settings = {
     actions: false,
     columns: {
@@ -33,20 +38,6 @@ export class BookingListComponent implements OnInit {
       additionalInformation: {
         title: 'Comment',
         type: 'string',
-      },
-      recordStatus: {
-        title: 'Status',
-        type: 'string',
-        filter: {
-          type: 'list',
-          config: {
-            selectText: 'Select...',
-            list: [
-              {value: 'ACTIVE', title: 'ACTIVE'},
-              {value: 'DEACTIVATED', title: 'DEACTIVATED'},
-            ],
-          },
-        },
       },
       dateCreated: {
         title: 'Date',
@@ -67,11 +58,12 @@ export class BookingListComponent implements OnInit {
     },
   };
 
-
-  constructor(private dialogService: NbDialogService, private store: Store<AppState>) {
+  constructor(private dialogService: NbDialogService, private router: Router, private store: Store<AppState>) {
   }
 
   ngOnInit(): void {
+
+    this.authValidation();
     this.store.dispatch(loadBookingRequest());
     this.store.dispatch(loadDepartmentRequest());
 
@@ -80,19 +72,25 @@ export class BookingListComponent implements OnInit {
         next: (data) => {
 
           console.log('data', data);
-
           data = data.map(x => {
             return {
               id: x.id,
               registrationNumber: x.vehicle.registrationNumber,
               bookingStatus: x.bookingStatus,
-              motorServiceCategories: x.motorServiceCategories.map(cat => cat.category).join(', '),
+              motorServiceCategories: x.motorServiceCategories.map((category: Partial<MotorServiceCategory>) => category.name).join(', '),
+              motorServiceCategoryIds: x.motorServiceCategories.map((category: Partial<MotorServiceCategory>) => category.id).join(', '),
               additionalInformation: x.additionalInformation,
               recordStatus: x.recordStatus,
               dateCreated: x.dateCreated,
             };
           });
-          this.source.load(data);
+
+          if (this.role === 'ROLE_ADMIN') {
+            this.source.load(data);
+          } else {
+            const departmentBookings = data.filter(booking => booking.vehicle.departmentId === this.departmentId);
+            this.source.load(departmentBookings);
+          }
         },
       });
   }
@@ -103,5 +101,17 @@ export class BookingListComponent implements OnInit {
         booking: $event.data,
       },
     });
+  }
+
+  authValidation() {
+    const auth = localStorage.getItem('auth');
+    if (!auth) {
+      this.router.navigate(['/']);
+      return;
+    }
+
+    const role: any = jwt_decode(JSON.parse(auth).data.accessToken);
+    this.role = role.Roles;
+    this.departmentId = role.DepartmentId;
   }
 }

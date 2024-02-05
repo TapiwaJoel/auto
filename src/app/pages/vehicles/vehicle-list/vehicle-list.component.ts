@@ -10,6 +10,8 @@ import {VehicleEditComponent} from '../vehicle-edit/vehicle-edit.component';
 import {loadDepartmentRequest} from '../../departments/departments.actions';
 import {selectAllDepartments} from '../../departments/departments.selectors';
 import {Department} from '../../departments/departments.entity';
+import jwt_decode from 'jwt-decode';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'ngx-vehicle-list',
@@ -19,6 +21,8 @@ import {Department} from '../../departments/departments.entity';
 export class VehicleListComponent implements OnInit {
   source: LocalDataSource = new LocalDataSource();
   departments: Partial<Department>[];
+  departmentName = '';
+  role = '';
   settings = {
     actions: false,
     columns: {
@@ -91,12 +95,13 @@ export class VehicleListComponent implements OnInit {
     },
   };
 
-  constructor(private dialogService: NbDialogService, private store: Store<AppState>) {
+  constructor(private dialogService: NbDialogService, private router: Router, private store: Store<AppState>) {
   }
 
   ngOnInit(): void {
     this.store.dispatch(loadDepartmentRequest());
     this.store.dispatch(loadVehicleRequest());
+    this.authValidation();
 
     this.store.pipe(select(selectAllDepartments))
       .subscribe({
@@ -107,8 +112,10 @@ export class VehicleListComponent implements OnInit {
 
     this.store.pipe(select(selectAllVehicles))
       .subscribe({
-        next: (data) => {
-          data = data.map(x => {
+        next: (vehicles) => {
+
+          console.log('vehicles 1', vehicles);
+          vehicles = vehicles.map(x => {
             return {
               id: x.id,
               department: this.departments.find(dep => dep.id === x.departmentId)?.name,
@@ -125,10 +132,14 @@ export class VehicleListComponent implements OnInit {
             };
           });
 
-          this.source.load(data);
+          if (this.role === 'ROLE_ADMIN') {
+            this.source.load(vehicles);
+          } else {
+            const departmentVehicles = vehicles.filter(vehicle => vehicle.department === this.departmentName);
+            this.source.load(departmentVehicles);
+          }
         },
       });
-
   }
 
   add() {
@@ -141,5 +152,17 @@ export class VehicleListComponent implements OnInit {
         vehicle: $event.data,
       },
     });
+  }
+
+  authValidation() {
+    const auth = localStorage.getItem('auth');
+    if (!auth) {
+      this.router.navigate(['/']);
+      return;
+    }
+
+    const role: any = jwt_decode(JSON.parse(auth).data.accessToken);
+    this.departmentName = role.DepartmentName;
+    this.role = role.Roles;
   }
 }

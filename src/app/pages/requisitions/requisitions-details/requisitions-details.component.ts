@@ -3,6 +3,8 @@ import {Requisition} from '../requisitions.entity';
 import {Observable} from 'rxjs/Observable';
 import {LocalDataSource} from 'ng2-smart-table';
 import {RequisitionService} from '../requisitions.service';
+import {NbDialogService} from '@nebular/theme';
+import {RequisitionsEditComponent} from '../requisitions-edit/requisitions-edit.component';
 
 @Component({
   selector: 'ngx-requisitions-details',
@@ -17,9 +19,12 @@ export class RequisitionsDetailsComponent implements OnInit {
   settings = {
     actions: false,
     columns: {
-      name: {
-        title: 'Name',
+      stockCode: {
+        title: 'Stock Code',
         type: 'string',
+      },
+      name: {
+        title: 'Name', type: 'string',
       },
       description: {
         title: 'Description',
@@ -27,10 +32,6 @@ export class RequisitionsDetailsComponent implements OnInit {
       },
       quantity: {
         title: 'Quantity',
-        type: 'string',
-      },
-      productStatus: {
-        title: 'Status',
         type: 'string',
       },
       dateCreated: {
@@ -52,15 +53,27 @@ export class RequisitionsDetailsComponent implements OnInit {
     },
   };
 
-  constructor(private requisitionService: RequisitionService) {
+  constructor(private requisitionService: RequisitionService,
+              private dialogService: NbDialogService) {
   }
 
   ngOnInit(): void {
-    const find = this.requisitionService.requisitions.find(req => req.id === this.requisition.id);
-    this.source.load(find.productRequested);
+    this.getRequisitionById();
   }
 
-  addProductsRequisition() {
+  getRequisitionById() {
+    this.requisitionService.getByRequisitionNumber(this.requisition.id)
+      .subscribe((dash: any) => {
+        this.source.load(dash.data);
+        console.log('dash', dash);
+      });
+  }
 
+  editRequisition() {
+    this.dialogService.open(RequisitionsEditComponent, {
+      context: {
+        requisition: this.requisition,
+      },
+    });
   }
 }

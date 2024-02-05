@@ -1,0 +1,18 @@
+<nb-card [nbSpinner]="false" nbSpinnerStatus="danger" style="width: 50vw">
+  <nb-card-header>
+    Materials to be used in {{serviceTask.serviceName}}
+
+    <button (click)="editServiceJob()" nbButton shape="round" size="small" status="success" style="float: right">Edit
+      Service Jobs
+    </button>
+    <button (click)="addMaterial()" nbButton shape="round" size="small" status="success" style="float: right;
+    margin-right: 1rem">Add
+      Materials
+    </button>
+  </nb-card-header>
+  <nb-card-body>
+    <ng2-smart-table [settings]="settings"
+                     [source]="source">
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>

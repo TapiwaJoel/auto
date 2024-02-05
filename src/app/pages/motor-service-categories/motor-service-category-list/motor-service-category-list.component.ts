@@ -6,6 +6,8 @@ import {select, Store} from '@ngrx/store';
 import {AppState} from '../../app-store/app-state';
 import {loadMotorServiceCategoryRequest} from '../motor-service-categories.actions';
 import {selectAllMotorServiceCategories} from '../motor-service-categories.selectors';
+import {DepartmentEditComponent} from '../../departments/department-edit/department-edit.component';
+import {MotorServiceCategoryEditComponent} from '../motor-service-category-edit/motor-service-category-edit.component';
 
 @Component({
   selector: 'ngx-service-garage-list',
@@ -17,7 +19,7 @@ export class MotorServiceCategoryListComponent implements OnInit {
   settings = {
     actions: false,
     columns: {
-      category: {
+      name: {
         title: 'Category Name',
         type: 'string',
       },
@@ -64,7 +66,6 @@ export class MotorServiceCategoryListComponent implements OnInit {
   ngOnInit(): void {
 
     this.store.dispatch(loadMotorServiceCategoryRequest());
-
     this.store.pipe(select(selectAllMotorServiceCategories))
       .subscribe({
         next: (data) => {
@@ -74,7 +75,11 @@ export class MotorServiceCategoryListComponent implements OnInit {
   }
 
   onRowSelect($event: any) {
-
+    this.dialogService.open(MotorServiceCategoryEditComponent, {
+      context: {
+        motorServiceCategory: $event.data,
+      },
+    });
   }
 
   add() {

@@ -1,0 +1,11 @@
+<nb-card [nbSpinner]="false" nbSpinnerStatus="danger">
+  <nb-card-header>
+    Motor Service Jobs
+  </nb-card-header>
+  <nb-card-body>
+    <ng2-smart-table [settings]="settings"
+                     (userRowSelect)="onRowSelect($event)"
+                     [source]="source">
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>

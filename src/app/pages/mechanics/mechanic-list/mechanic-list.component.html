@@ -1,1 +1,10 @@
-<p>mechanic-list works!</p>
+<nb-card [nbSpinner]="false" nbSpinnerStatus="danger">
+  <nb-card-header>
+    Mechanics
+  </nb-card-header>
+  <nb-card-body>
+    <ng2-smart-table [settings]="settings"
+                     [source]="source">
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>

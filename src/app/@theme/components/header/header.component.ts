@@ -62,14 +62,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.store.pipe(select(selectAllUsers))
-      .subscribe({
-        next: (data) => {
-          this.users = data;
-          const foundUser = this.users.find(user => user.email === JSON.parse(auth).username);
-          this.user = {name: foundUser?.firstName + ' ' + foundUser?.lastName};
-        },
-      });
+    console.log('auth', auth);
+    console.log('JSON.parse(auth).username', JSON.parse(auth).username);
+
+    this.user = {name: JSON.parse(auth)?.data?.user?.firstName + ' ' + JSON.parse(auth)?.data?.user?.lastName};
+
+    // this.store.pipe(select(selectAllUsers))
+    //   .subscribe({
+    //     next: (data) => {
+    //       this.users = data;
+    //       console.log('this.users', this.users);
+    //       const foundUser = this.users.find(user => user.email === JSON.parse(auth).username);
+    //       this.user = {name: foundUser?.firstName + ' ' + foundUser?.lastName};
+    //     },
+    //   });
 
     const {xl} = this.breakpointService.getBreakpointsMap();
     this.themeService.onMediaQueryChange()

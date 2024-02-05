@@ -1,7 +1,8 @@
 <nb-card [nbSpinner]="loader$ | async" nbSpinnerStatus="danger" style="width: 60vw">
   <nb-card-header>
-    Requisition Details
-    <button nbButton shape="round" size="small" status="success" style="float: right" (click)="addProductsRequisition()">Add Products</button>
+   {{requisition.description}} Requisition
+    <button nbButton shape="round" size="small" status="success" style="float: right" (click)="editRequisition()">Edit
+      Requisition</button>
 
   </nb-card-header>
   <nb-card-body>

@@ -31,6 +31,7 @@ export class VehicleEditComponent implements OnInit {
   motorServiceCategories: Partial<MotorServiceCategory>[] = [];
   servicesSelected: string[] = [];
   additionalInformation: string;
+  selectDept: Partial<Department>;
   transferReasons = ['Accident Damaged', 'Not Road Worth', 'Sold', 'Transfer to Other Department'];
 
   constructor(private store: Store<AppState>) {
@@ -54,6 +55,7 @@ export class VehicleEditComponent implements OnInit {
       chassis: new FormControl('', Validators.required),
       recordStatus: new FormControl('', Validators.required),
       reasonForUpdate: new FormControl('', Validators.required),
+      transferReason: new FormControl('', Validators.required),
     });
 
     this.store.pipe(select(selectAllDepartments))
@@ -63,8 +65,12 @@ export class VehicleEditComponent implements OnInit {
         },
       });
 
+    this.selectDept = this.departments.find(dept => dept.name === this.vehicle.department);
+
+    this.editVehicleForm.get('departmentId').setValue(
+      this.departments.find(dept => dept.name === this.vehicle.department));
+
     this.editVehicleForm.patchValue({
-      departmentId: this.departments.find(dept => dept.name === this.vehicle.department)?.id,
       registrationNumber: this.vehicle.registrationNumber,
       vin: this.vehicle.vin,
       make: this.vehicle.make,
@@ -88,7 +94,14 @@ export class VehicleEditComponent implements OnInit {
   }
 
   onSubmit() {
-    this.store.dispatch(editVehicleRequest({vehicle: {...this.editVehicleForm.value, id: this.vehicle.id}}));
+    const deptId = this.editVehicleForm.value.departmentId.id || this.editVehicleForm.value.departmentId;
+    delete this.editVehicleForm.value.departmentId;
+
+    const vehicle = {
+      ...this.editVehicleForm.value, departmentId: deptId, id: this.vehicle.id,
+    };
+
+    this.store.dispatch(editVehicleRequest({vehicle}));
   }
 
   onChecksChange(selected: boolean, motorServiceCategory: string) {
@@ -101,6 +114,8 @@ export class VehicleEditComponent implements OnInit {
   }
 
   onBook() {
+
+
     const booking: Partial<Booking> = {
       vehicleId: this.vehicle.id,
       motorServiceCategoryIds: this.servicesSelected,
@@ -110,5 +125,9 @@ export class VehicleEditComponent implements OnInit {
     }
 
     this.store.dispatch(createBookingRequest({booking}));
+  }
+
+  compareById(v1: string, v2: Partial<Department>): boolean {
+    return (parseInt(v1, 0) === parseInt(v2.id, 0));
   }
 }

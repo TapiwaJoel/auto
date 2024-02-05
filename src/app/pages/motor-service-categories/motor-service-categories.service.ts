@@ -22,7 +22,7 @@ export class MotorServiceCategoriesService {
   }
 
   put(motorServiceCategory: Partial<MotorServiceCategory>) {
-    const pathUrl = '/motor-service-categories';
+    const pathUrl = '/motor-service-categories/';
     return this.http.put(this.config.apiUrl + pathUrl + motorServiceCategory.id, motorServiceCategory);
   }
 }

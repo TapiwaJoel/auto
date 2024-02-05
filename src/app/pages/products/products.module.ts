@@ -13,6 +13,7 @@ import {StoreModule} from '@ngrx/store';
 import {EffectsModule} from '@ngrx/effects';
 import {productReducer} from './products.reducer';
 import {ProductEffects} from './products.effects';
+import {RequisitionsModule} from '../requisitions/requisitions.module';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import {ProductEffects} from './products.effects';
     NbSpinnerModule,
     NbCardModule,
     Ng2SmartTableModule,
+    RequisitionsModule,
     StoreModule.forFeature('products', productReducer),
     EffectsModule.forFeature([ProductEffects]),
     NbButtonModule,

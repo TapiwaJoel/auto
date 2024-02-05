@@ -22,6 +22,7 @@ export class BookingService {
   }
 
   put(booking: Partial<Booking>) {
+    console.log('here', booking);
     const pathUrl = '/bookings/';
     return this.http.put(this.config.apiUrl + pathUrl + booking.id, booking);
   }

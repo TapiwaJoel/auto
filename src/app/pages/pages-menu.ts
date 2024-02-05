@@ -30,6 +30,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
     link: '/pages/departments',
   },
   {
+    title: 'Mechanics',
+    icon: 'layout-outline',
+    link: '/pages/mechanics',
+  },
+  {
     title: 'Requisitions',
     icon: 'layout-outline',
     link: '/pages/requisitions',
@@ -48,10 +53,32 @@ export const MENU_ITEMS: NbMenuItem[] = [
     title: 'Motor Service Categories',
     icon: 'layout-outline',
     link: '/pages/motor-service-categories',
+  }, {
+    title: 'Motor Service Jobs',
+    icon: 'layout-outline',
+    link: '/pages/motor-service-jobs',
   },
 ];
 
 export const HOD_MENU_ITEMS: NbMenuItem[] = [
+  {
+    title: 'FEATURES',
+    group: true,
+  },
+  {
+    title: 'Vehicles',
+    icon: 'layout-outline',
+    link: '/pages/vehicles',
+  },
+  {
+    title: 'Bookings',
+    icon: 'layout-outline',
+    link: '/pages/bookings',
+  },
+];
+
+
+export const MECHANIC_SUPERVISOR_ITEMS: NbMenuItem[] = [
   {
     title: 'FEATURES',
     group: true,

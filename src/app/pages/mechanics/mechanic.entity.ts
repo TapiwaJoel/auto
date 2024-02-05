@@ -1,10 +1,11 @@
 import {User} from '../users/users.entity';
 
-
 export interface Mechanic {
   id: string;
   userId: Partial<User>;
-  user: any;
+  user: Partial<User>;
+  isSupervisor: boolean;
+  fullName: string;
   recordStatus: string;
   dateCreated: string;
 }

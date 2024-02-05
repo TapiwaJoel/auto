@@ -4,7 +4,7 @@ export interface Booking {
   id: string;
   vehicleId: string;
   vehicle: Partial<Vehicle>;
-  motorServiceCategoryIds: string[];
+  motorServiceCategoryIds: any;
   motorServiceCategories: any;
   additionalInformation: string;
   bookingStatus: any;

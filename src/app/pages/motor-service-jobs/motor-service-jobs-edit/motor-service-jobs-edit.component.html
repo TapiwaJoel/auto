@@ -1,0 +1,71 @@
+<nb-card [nbSpinner]="loader$ | async" nbSpinnerStatus="danger" style="width: 40vw">
+  <nb-card-header>Edit Service Job</nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="addTaskForm">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="serviceCategoryId">Select Service</label>
+            <select class="form-control" formControlName="serviceCategoryId" id="serviceCategoryId">
+              <option *ngFor="let service of services" value="{{service.id}}">
+                {{service.name}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="mechanicId">Select Mechanic</label>
+            <select class="form-control" formControlName="mechanicId" id="mechanicId">
+              <option *ngFor="let mechanic of mechanics" value="{{mechanic.id}}">
+                {{mechanic.fullName}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="description">Job Description</label>
+            <textarea class="form-control" id="description" formControlName="description"
+                      placeholder="Job Description"></textarea>
+          </div>
+        </div>
+
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="expectedDeliveryDate">Expected Delivery Date</label>
+            <input [nbDatepicker]="datepicker" class="btn-block"
+                   formControlName="expectedDeliveryDate"
+                   id="expectedDeliveryDate" nbInput placeholder="Expected Delivery Date"
+                   style="width: 100%">
+            <nb-datepicker #datepicker></nb-datepicker>
+          </div>
+        </div>
+
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="taskStatus">Task Status</label>
+            <select formControlName="taskStatus" class="form-control" id="taskStatus">
+              <option *ngFor="let status of statuses" value="{{status}}">
+                {{status}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-sm-12">
+          <div class="form-group">
+            <button
+              (click)="onSubmit()"
+              [disabled]="!addTaskForm.valid"
+              class="btn btn-outline-success btn-icon btn-semi-round btn-demo"
+              id="button"
+              type="button">
+              Save
+              <i class="plus-outline"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>

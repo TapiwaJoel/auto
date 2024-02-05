@@ -29,10 +29,7 @@ export class RequisitionsListComponent implements OnInit {
         title: 'Description',
         type: 'string',
       },
-      numberOfProducts: {
-        title: 'Number Of Products',
-        type: 'string',
-      },
+
       dateCreated: {
         title: 'Date',
         type: 'date',
@@ -70,7 +67,6 @@ export class RequisitionsListComponent implements OnInit {
               description: dat.description,
               dateCreated: dat.dateCreated,
               recordStatus: dat.recordStatus,
-              numberOfProducts: dat.productRequested.length,
             };
           });
 
@@ -78,10 +74,6 @@ export class RequisitionsListComponent implements OnInit {
           this.source.load(newData);
         },
       });
-
-    this.source.onChanged().subscribe((data) => {
-      console.log('data on change', data);
-    });
   }
 
   onRequisitionRowSelect($event: any) {

@@ -32,7 +32,7 @@ export class PagesComponent {
     // Role
     // "ROLE_HOD"
 
-    if (role.Role === 'ROLE_HOD') {
+    if (role.Roles === 'ROLE_HOD') {
       this.menu = HOD_MENU_ITEMS;
     } else {
       this.menu = MENU_ITEMS;

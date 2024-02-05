@@ -4,6 +4,26 @@
   <nb-card-body>
     <form [formGroup]="addProductForm">
       <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <div class="form-group">
+              <label for="code">Select Requisition</label>
+              <select class="form-control" formControlName="requisitionNumber" id="requisitionNumber">
+                <option *ngFor="let requisition of requisitions" value="{{requisition.id}}">
+                  {{requisition.description}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <div class="form-group">
+              <label for="code">Stock Code</label>
+              <input class="form-control" formControlName="stockCode" id="code" placeholder="Stock Code"
+                     type="text">
+            </div>
+          </div>
+        </div>
         <div class="col-sm-6">
           <div class="form-group">
             <div class="form-group">
@@ -25,39 +45,10 @@
         <div class="col-sm-6">
           <div class="form-group">
             <div class="form-group">
-              <label for="price">Price</label>
-              <input class="form-control" id="price" formControlName="price" placeholder="Price"
-                     type="number">
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6">
-          <div class="form-group">
-            <div class="form-group">
-              <label for="quantityAvailableInStock">Quantity Available In Stock</label>
-              <input class="form-control" id="quantityAvailableInStock" formControlName="quantityAvailableInStock"
+              <label for="quantity">Quantity Available In Stock</label>
+              <input class="form-control" id="quantity" formControlName="quantity"
                      type="number"
                      placeholder="Quantity Available In Stock">
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6">
-          <div class="form-group">
-            <div class="form-group">
-              <label for="code">Code</label>
-              <input class="form-control" id="code" formControlName="code" placeholder="Code"
-                     type="text">
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6">
-          <div class="form-group">
-            <div class="form-group">
-              <label for="currency">Currency</label>
-              <select formControlName="currency" class="form-control" id="currency">
-                <option *ngFor="let currency of currencies" value="{{currency}}">
-                  {{currency}}</option>
-              </select>
             </div>
           </div>
         </div>
