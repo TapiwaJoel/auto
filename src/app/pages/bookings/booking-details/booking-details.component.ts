@@ -173,10 +173,9 @@ export class BookingDetailsComponent implements OnInit {
 
   onBook() {
     const booking: Partial<Booking> = {
-      motorServiceCategoryIds: this.servicesSelected, id: this.booking.id, bookingStatus: this.bookingStatus
+      motorServiceCategoryIds: this.servicesSelected, id: this.booking.id, bookingStatus: this.bookingStatus,
     };
 
-    console.log('this.bookingStatus', this.bookingStatus);
     if (this.additionalInformation) {
       booking.additionalInformation = this.additionalInformation;
     }
@@ -186,7 +185,6 @@ export class BookingDetailsComponent implements OnInit {
     }
     this.store.dispatch(editBookingRequest({booking}));
   }
-
 
   checkChecked(category: string) {
     return this.services.includes(category);

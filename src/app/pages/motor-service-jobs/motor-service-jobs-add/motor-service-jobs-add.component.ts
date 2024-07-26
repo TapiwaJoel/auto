@@ -3,13 +3,12 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs/Observable';
 import {select, Store} from '@ngrx/store';
 import {AppState} from '../../app-store/app-state';
-import {selectAllTasks, selectTaskLoading} from '../../tasks/tasks.selectors';
+import {selectTaskLoading} from '../../tasks/tasks.selectors';
 import {loadMechanicRequest} from '../../mechanics/mechanic.actions';
 import {selectAllMechanics} from '../../mechanics/mechanic.selectors';
 import {Mechanic} from '../../mechanics/mechanic.entity';
 import {MotorServiceCategory} from '../../motor-service-categories/motor-service-categories.entity';
 import {Booking} from '../../bookings/bookings.entity';
-import {createMotorServiceJobRequest} from '../motor-service-jobs.actions';
 import {createTaskRequest} from '../../tasks/tasks.actions';
 
 @Component({
@@ -31,8 +30,6 @@ export class MotorServiceJobsAddComponent implements OnInit {
 
   ngOnInit(): void {
     this.loader$ = this.store.pipe(select(selectTaskLoading));
-
-
 
     this.addTaskForm = new FormGroup({
       serviceCategoryId: new FormControl('', Validators.required),

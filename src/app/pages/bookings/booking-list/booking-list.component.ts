@@ -70,8 +70,6 @@ export class BookingListComponent implements OnInit {
     this.store.pipe(select(selectAllBookings))
       .subscribe({
         next: (data) => {
-
-          console.log('data', data);
           data = data.map(x => {
             return {
               id: x.id,
@@ -81,14 +79,14 @@ export class BookingListComponent implements OnInit {
               motorServiceCategoryIds: x.motorServiceCategories.map((category: Partial<MotorServiceCategory>) => category.id).join(', '),
               additionalInformation: x.additionalInformation,
               recordStatus: x.recordStatus,
-              dateCreated: x.dateCreated,
+              dateCreated: x.dateCreated, ...x,
             };
           });
 
           if (this.role === 'ROLE_ADMIN') {
             this.source.load(data);
           } else {
-            const departmentBookings = data.filter(booking => booking.vehicle.departmentId === this.departmentId);
+            const departmentBookings = data.filter(booking => booking.vehicle?.departmentId === this.departmentId);
             this.source.load(departmentBookings);
           }
         },

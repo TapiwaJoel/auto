@@ -132,9 +132,12 @@ export class VehicleListComponent implements OnInit {
             };
           });
 
+
           if (this.role === 'ROLE_ADMIN') {
             this.source.load(vehicles);
           } else {
+
+
             const departmentVehicles = vehicles.filter(vehicle => vehicle.department === this.departmentName);
             this.source.load(departmentVehicles);
           }

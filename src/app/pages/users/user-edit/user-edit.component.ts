@@ -91,11 +91,25 @@ export class UserEditComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.user.email === this.editUserForm.value.email && this.user.firstName === this.editUserForm.value.firstName && this.user.role === this.editUserForm.value.role && this.user.recordStatus === this.editUserForm.value.recordStatus && this.user.phone === this.editUserForm.value.phone && this.user.lastName === this.editUserForm.value.lastName) {
+    if (this.user.email === this.editUserForm.value.email &&
+      this.user.firstName === this.editUserForm.value.firstName &&
+      this.user.role === this.editUserForm.value.role &&
+      this.user.recordStatus === this.editUserForm.value.recordStatus &&
+      this.user.phone === this.editUserForm.value.phone &&
+      this.user.lastName === this.editUserForm.value.lastName) {
       this.toast.makeToast('warning', 'Error', 'No field was changed');
       return;
     } else {
       this.store.dispatch(editRequest({user: {...this.editUserForm.value, id: this.user.id}}));
+    }
+
+    if (this.editUserForm.value.role === 'ROLE_HOD') {
+      this.onAddHODSubmit();
+    }
+
+    if (this.editUserForm.value.role === 'ROLE_MECHANIC_SUPERVISOR' ||
+      this.editUserForm.value.role === 'ROLE_MECHANIC') {
+      this.onAddMechanicSubmit();
     }
   }
 
@@ -116,6 +130,10 @@ export class UserEditComponent implements OnInit {
     let isSupervisor = false;
     if (this.editUserForm.value.role === 'ROLE_MECHANIC_SUPERVISOR') {
       isSupervisor = true;
+    }
+
+    if (this.editUserForm.value.role === 'ROLE_MECHANIC') {
+      isSupervisor = false;
     }
 
     this.store.dispatch(createMechanicRequest({
