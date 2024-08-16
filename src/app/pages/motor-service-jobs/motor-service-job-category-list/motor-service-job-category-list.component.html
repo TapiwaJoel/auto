@@ -1,0 +1,14 @@
+<nb-card [nbSpinner]="false" nbSpinnerStatus="danger" style="width: 70vw">
+  <nb-card-header>
+    Services To Be Performed
+    <button (click)="addJob()" nbButton shape="round" size="small" status="success" style="float: right;
+    margin-right: 1rem">Add Service Job
+    </button>
+  </nb-card-header>
+  <nb-card-body>
+    <ng2-smart-table [settings]="settings"
+                     (userRowSelect)="rowSelect($event)"
+                     [source]="source">
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>
